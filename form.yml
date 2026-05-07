@@ -1,8 +1,7 @@
 
 ---
-cluster: 
-  - "ascend"
-  - "pitzer"
+cluster:
+  - "cbe"
 form:
   - auto_accounts
   - bc_num_hours
