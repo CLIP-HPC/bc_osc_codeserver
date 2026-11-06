@@ -1,15 +1,48 @@
-
 ---
 cluster: ""
+# Limits follow the interactive QOS (48 CPUs, 1000 GB, 12 hours per user) on CBE.next.
+# Only partition c is offered for now.
 attributes:
-  bc_queue: ""
-  bc_num_hours: ""
-  codeserver_module: ""
-  cores: ""
-  ram: ""
+  # Not cached: values cached from an older form would override the module.
+  codeserver_module:
+    widget: "hidden_field"
+    value: "code-server/4.143.1"
+    cacheable: false
+  # A plain select, not auto_queues: auto_queues ignores options and lists every partition.
+  partition:
+    widget: "select"
+    label: "Partition"
+    help: |
+      Slurm partition to submit the job to.
+    value: "c"
+    options:
+      - ["CPU (c)", "c"]
+  cores:
+    widget: "number_field"
+    label: "CPU cores"
+    value: 2
+    min: 1
+    max: 48
+    step: 1
+  ram:
+    widget: "number_field"
+    label: "Memory (GB)"
+    value: 32
+    min: 1
+    max: 1000
+    step: 1
+  bc_num_hours:
+    widget: "number_field"
+    label: "Hours"
+    value: 8
+    min: 1
+    max: 12
+    step: 1
+  bc_email_on_started: ""
 form:
-  - bc_queue
-  - bc_num_hours
   - codeserver_module
+  - partition
   - cores
   - ram
+  - bc_num_hours
+  - bc_email_on_started
