@@ -3,3 +3,14 @@ batch_connect:
   template: "basic"
   conn_params:
     - code_server_version
+# See the Slurm section at https://osc.github.io/ood-documentation/master/enable-desktops/custom-job-submission.html
+script:
+  native:
+    - "--partition"
+    - "<%= partition.blank? ? "c" : partition %>"
+    - "--ntasks"
+    - "1"
+    - "--mem"
+    - "<%= ram.blank? ? 32 : ram.to_i %>G"
+    - "--cpus-per-task"
+    - "<%= cores.blank? ? 2 : cores.to_i %>"
